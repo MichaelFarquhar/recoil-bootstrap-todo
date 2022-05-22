@@ -88,10 +88,11 @@ export const Todo = () => {
                         <Button
                             className="mt-3"
                             variant="primary"
-                            id="clear-checked"
+                            id="clear-All"
                             disabled={todoList.length === 0}
+                            onClick={() => setTodoList([])}
                         >
-                            Clear Checked
+                            Clear All
                         </Button>
                     </div>
                 </Card.Body>
