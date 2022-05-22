@@ -9,7 +9,7 @@ export const TodoFilter = () => {
             className="d-flex mb-3"
             size={'sm'}
             style={{ width: 'fit-content' }}
-            disabled={todoList.length == 0}
+            disabled={todoList.length === 0}
         >
             <option>Filter Todos</option>
             <option value="1">Show All</option>

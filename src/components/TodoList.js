@@ -1,4 +1,4 @@
-import { ListGroup } from 'react-bootstrap';
+import { FormCheck, ListGroup } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
 import { todoListState } from '../state/todos';
 
@@ -7,11 +7,9 @@ const TodoList = () => {
     return (
         <div>
             <ListGroup>
-                {todoList.length == 0 ? (
+                {todoList.length === 0 ? (
                     <ListGroup.Item>
-                        <span style={{ fontStyle: 'italic' }}>
-                            All tasks are complete!
-                        </span>
+                        <span style={{ fontStyle: 'italic' }}>No tasks to list.</span>
                     </ListGroup.Item>
                 ) : (
                     todoList.map((todo, index) => (
@@ -20,7 +18,16 @@ const TodoList = () => {
                             action
                             onClick={() => console.log('cicked: ' + index)}
                         >
-                            {todo.task}
+                            <div className="d-flex">
+                                <FormCheck
+                                    type="checkbox"
+                                    id="default-checkbox"
+                                    label={``}
+                                    disabled
+                                    checked={todo.isComplete}
+                                />
+                                <div>{todo.task}</div>
+                            </div>
                         </ListGroup.Item>
                     ))
                 )}
