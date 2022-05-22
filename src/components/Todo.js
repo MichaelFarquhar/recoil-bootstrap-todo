@@ -60,7 +60,7 @@ export const Todo = () => {
     };
 
     return (
-        <Stack gap={3}>
+        <Stack gap={3} className="m-3">
             <Col>
                 <h1>Todo List</h1>
             </Col>
