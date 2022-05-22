@@ -1,9 +1,22 @@
 import { FormCheck, ListGroup } from 'react-bootstrap';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { todoListState } from '../state/todos';
 
 const TodoList = () => {
-    const todoList = useRecoilValue(todoListState);
+    const [todoList, setTodoList] = useRecoilState(todoListState);
+
+    const completeTodo = (todo, index) => {
+        const changedTodo = {
+            ...todo,
+            isComplete: !todo.isComplete,
+        };
+        setTodoList((oldTodo) => [
+            ...oldTodo.slice(0, index),
+            changedTodo,
+            ...oldTodo.slice(index + 1),
+        ]);
+    };
+
     return (
         <div>
             <ListGroup>
@@ -16,7 +29,7 @@ const TodoList = () => {
                         <ListGroup.Item
                             key={index}
                             action
-                            onClick={() => console.log('cicked: ' + index)}
+                            onClick={() => completeTodo(todo, index)}
                         >
                             <div className="d-flex">
                                 <FormCheck
@@ -26,7 +39,15 @@ const TodoList = () => {
                                     disabled
                                     checked={todo.isComplete}
                                 />
-                                <div>{todo.task}</div>
+                                <div
+                                    style={{
+                                        textDecoration: todo.isComplete
+                                            ? 'line-through'
+                                            : 'inherit',
+                                    }}
+                                >
+                                    {todo.task}
+                                </div>
                             </div>
                         </ListGroup.Item>
                     ))
