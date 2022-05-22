@@ -1,5 +1,14 @@
-import { useState } from 'react';
-import { Col, Button, Stack, InputGroup, FormControl, Card } from 'react-bootstrap';
+import { useRef, useState } from 'react';
+import {
+    Col,
+    Button,
+    Stack,
+    InputGroup,
+    FormControl,
+    Card,
+    Tooltip,
+    Overlay,
+} from 'react-bootstrap';
 import { useRecoilState } from 'recoil';
 import { todoListState } from '../state/todos';
 import { TodoFilter } from './TodoFilter';
@@ -9,12 +18,21 @@ export const Todo = () => {
     const [todoInput, setTodoInput] = useState('');
     const [todoList, setTodoList] = useRecoilState(todoListState);
 
+    const [showTooltip, setShowTooltip] = useState(false);
+    const target = useRef(null);
+
     const onChange = (e) => {
         const value = e.target.value;
         setTodoInput(value);
     };
 
     const addTodo = () => {
+        if (todoInput === '') {
+            setShowTooltip(true);
+            return;
+        }
+        setShowTooltip(false);
+
         setTodoList((oldTodo) => [
             ...oldTodo,
             {
@@ -44,9 +62,21 @@ export const Todo = () => {
                             variant="outline-dark"
                             id="add-todo"
                             onClick={() => addTodo()}
+                            ref={target}
                         >
                             Add Todo
                         </Button>
+                        <Overlay
+                            target={target.current}
+                            show={showTooltip}
+                            placement="right"
+                        >
+                            {(props) => (
+                                <Tooltip id="overlay-example" {...props}>
+                                    Todo cannot be empty
+                                </Tooltip>
+                            )}
+                        </Overlay>
                     </InputGroup>
                 </Card.Header>
             </Card>
