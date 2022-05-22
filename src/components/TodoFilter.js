@@ -1,5 +1,5 @@
 import { FormSelect } from 'react-bootstrap';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { todoListFilterState, todoListState } from '../state/todos';
 
 export const TodoFilter = () => {
