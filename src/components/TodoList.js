@@ -1,9 +1,10 @@
 import { FormCheck, ListGroup } from 'react-bootstrap';
-import { useRecoilState } from 'recoil';
-import { todoListState } from '../state/todos';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { todoListState, filteredTodoListState } from '../state/todos';
 
 const TodoList = () => {
-    const [todoList, setTodoList] = useRecoilState(todoListState);
+    const setTodoList = useSetRecoilState(todoListState);
+    const todoListFiltered = useRecoilValue(filteredTodoListState);
 
     const completeTodo = (todo, index) => {
         const changedTodo = {
@@ -17,15 +18,17 @@ const TodoList = () => {
         ]);
     };
 
+    console.log(todoListFiltered);
+
     return (
         <div>
             <ListGroup>
-                {todoList.length === 0 ? (
+                {todoListFiltered.length === 0 ? (
                     <ListGroup.Item>
                         <span style={{ fontStyle: 'italic' }}>No tasks to list.</span>
                     </ListGroup.Item>
                 ) : (
-                    todoList.map((todo, index) => (
+                    todoListFiltered.map((todo, index) => (
                         <ListGroup.Item
                             key={index}
                             action

@@ -9,14 +9,15 @@ import {
     Tooltip,
     Overlay,
 } from 'react-bootstrap';
-import { useRecoilState } from 'recoil';
-import { todoListState } from '../state/todos';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { todoListFilterState, todoListState } from '../state/todos';
 import { TodoFilter } from './TodoFilter';
 import TodoList from './TodoList';
 
 export const Todo = () => {
     const [todoInput, setTodoInput] = useState('');
     const [todoList, setTodoList] = useRecoilState(todoListState);
+    const todoListFilter = useRecoilValue(todoListFilterState);
 
     const [showTooltip, setShowTooltip] = useState(false);
     const target = useRef(null);
@@ -41,6 +42,21 @@ export const Todo = () => {
             },
         ]);
         setTodoInput('');
+    };
+
+    const clearTodos = () => {
+        switch (todoListFilter) {
+            // Showing checked
+            case '2':
+                setTodoList((oldTodo) => oldTodo.filter((item) => !item.isComplete));
+                break;
+            case '3':
+                setTodoList((oldTodo) => oldTodo.filter((item) => item.isComplete));
+                break;
+            // Otherwise clear All
+            default:
+                setTodoList([]);
+        }
     };
 
     return (
@@ -90,7 +106,7 @@ export const Todo = () => {
                             variant="primary"
                             id="clear-All"
                             disabled={todoList.length === 0}
-                            onClick={() => setTodoList([])}
+                            onClick={() => clearTodos()}
                         >
                             Clear All
                         </Button>
