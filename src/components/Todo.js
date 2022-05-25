@@ -62,7 +62,21 @@ export const Todo = () => {
     return (
         <Stack gap={3} className="m-3">
             <Col>
-                <h1>Todo List</h1>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h1 className="mb-0">Todo List</h1>
+                    <a
+                        href="https://github.com/MichaelFarquhar/recoil-bootstrap-todo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            src={process.env.PUBLIC_URL + '/github.svg'}
+                            alt="Github"
+                            width={35}
+                            height={35}
+                        />
+                    </a>
+                </div>
             </Col>
             <Card>
                 <Card.Header>
