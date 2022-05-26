@@ -18,8 +18,6 @@ const TodoList = () => {
         ]);
     };
 
-    console.log(todoListFiltered);
-
     return (
         <div>
             <ListGroup>

@@ -27,6 +27,13 @@ export const Todo = () => {
         setTodoInput(value);
     };
 
+    const onKeyChange = (ev) => {
+        // If key press was enter, then add the todo
+        if (ev.key === 'Enter') {
+            addTodo();
+        }
+    };
+
     const addTodo = () => {
         if (todoInput === '') {
             setShowTooltip(true);
@@ -62,7 +69,7 @@ export const Todo = () => {
     return (
         <Stack gap={3} className="m-3">
             <Col>
-                <div class="d-flex align-items-center justify-content-between">
+                <div className="d-flex align-items-center justify-content-between">
                     <h1 className="mb-0">Todo List</h1>
                     <a
                         href="https://github.com/MichaelFarquhar/recoil-bootstrap-todo"
@@ -86,6 +93,7 @@ export const Todo = () => {
                             aria-label="Write a new todo"
                             aria-describedby="add-todo"
                             onChange={(e) => onChange(e)}
+                            onKeyUp={(ev) => onKeyChange(ev)}
                             value={todoInput}
                         />
                         <Button

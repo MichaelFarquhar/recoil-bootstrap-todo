@@ -26,7 +26,6 @@ export const filteredTodoListState = selector({
         const filter = get(todoListFilterState);
         const list = get(todoListState);
 
-        console.log(filter);
         switch (filter) {
             case '2':
                 return list.filter((item) => item.isComplete);
